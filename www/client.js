@@ -19,7 +19,7 @@ requirejs.config({
 });
 
 requirejs(["jquery", "socketio", "qrcode", "phonegap"], function (jQuery, io, QRCode, cordova) {
-    var sUrl = "http://shire.epicnetwork.io:3000";
+    var sUrl = "http://epicnetwork.io:8080";
     jQuery("#receive").click(function () {
         var username = localStorage.getItem("guid");
         if (username == "") {
