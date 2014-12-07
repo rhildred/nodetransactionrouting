@@ -2,7 +2,8 @@ requirejs.config({
     "paths": {
         "jquery": "jquery-2.1.1.min",
         "socketio": 'socket.io',
-        "qrcode": 'qrcode.min'
+        "qrcode": 'qrcode.min',
+        "phonegap": "phonegap"
     },
     shim: {
         'socketio': {
@@ -10,11 +11,14 @@ requirejs.config({
         },
         "qrcode": {
             exports: 'QRCode'
+        },
+        "phonegap":{
+            exports: 'cordova'
         }
     }
 });
 
-requirejs(["jquery", "socketio", "qrcode"], function (jQuery, io, QRCode) {
+requirejs(["jquery", "socketio", "qrcode", "phonegap"], function (jQuery, io, QRCode, cordova) {
     var sUrl = "http://shire.epicnetwork.io:3000";
     jQuery("#receive").click(function () {
         var username = localStorage.getItem("guid");
@@ -41,36 +45,40 @@ requirejs(["jquery", "socketio", "qrcode"], function (jQuery, io, QRCode) {
         return false;
     });
     jQuery("#send").click(function () {
-        cordova.plugins.barcodeScanner.scan(
-            function (result) {
-                if (result.cancelled) return false;
-                var username = localStorage.getItem("guid");
-                var recipient = result.text;
-                var amount = jQuery("#amount").val();
-                if (username == "") {
-                    alert("enter username");
-                    return false;
+        try {
+            cordova.plugins.barcodeScanner.scan(
+                function (result) {
+                    if (result.cancelled) return false;
+                    var username = localStorage.getItem("guid");
+                    var recipient = result.text;
+                    var amount = jQuery("#amount").val();
+                    if (username == "") {
+                        throw "enter username";
+                    }
+                    if (recipient == "") {
+                        throw "enter recipient";
+                    }
+                    if (amount == "") {
+                        throw "enter amount";
+                    }
+                    var socket = io(sUrl);
+                    socket.emit('add username', username);
+                    socket.emit('receive message', {
+                        username: username,
+                        recipient: recipient,
+                        amount: amount
+                    });
+                    jQuery("#result").html("sent " + amount + " through the epic network to " + recipient);
+                    jQuery("#amount").val("");
+                },
+                function (error) {
+                    alert("Scanning failed: " + error);
                 }
-                if (recipient == "") {
-                    alert("enter recipient");
-                    return false;
-                }
-                if (amount == "") {
-                    alert("enter amount");
-                    return false;
-                }
-                var socket = io(sUrl);
-                socket.emit('add username', username);
-                socket.emit('receive message', {
-                    username: username,
-                    recipient: recipient,
-                    amount: amount
-                });
-            },
-            function (error) {
-                alert("Scanning failed: " + error);
-            }
-        );
+            );
+        } catch (err) {
+            alert(err);
+            return false;
+        }
 
         return false;
     });
