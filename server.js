@@ -12,7 +12,7 @@ server.listen(port, function () {
 
 var usernames = {};
 // Routing
-app.use(express.static(__dirname + '/www'));
+app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function (socket) {
   // when the client emits 'new message', this listens and executes
