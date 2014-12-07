@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <form id="signup">
+        <input id="firstName" placeholder="first name"/><br />
+        <input id="lastName" placeholder="last name"/><br />
+        <input type="email" id="email" placeholder="email"/><br />
+        <input id="phone" placeholder="phone"/><br />
+        <input id="dob" placeholder="yyyy-mm-dd"/><label for="dob">Date of Birth (so we can give you points on your birthday)</label><br />
+        <input type="checkbox" id="accept" required/><label for="accept">I accept the terms and conditions of the Epic Network</label><br />
+        <button type="submit">Submit</button>
+    </form>
+    <form id="sendReceive" style="display:none">
+        <span id="username"></span>
+        <button type="submit" id="send">Send</button>
+        <button type="submit" id="receive">Receive</button>
+        <div id="receives" style="display:none">
+            <div id="qrcode"></div>
+            <img id="horse" src="Horse_gallop.gif" />
+            <div id="result"></div>
+            <button type="submit" id="cancelReceive">Cancel</button>
+        </div>
+        <div id="sends" style="display:none">
+            <input id="recipient" placeholder="enter recipient" />
+            <input id="amount" placeholder="enter amount" />
+            <button type="submit" id="submit">Submit</button>
+            <button type="submit" id="cancelSend">Cancel</button>
+
+        </div>
+    </form>
+    <script data-main="client" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js"></script>
+</body>
+
+</html>

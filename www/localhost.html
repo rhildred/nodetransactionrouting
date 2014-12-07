@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <form id="sendReceive">
+        <input id="username" placeholder="enter your epic username" required/>
+        <button type="submit" id="send">Send</button>
+        <button type="submit" id="receive">Receive</button>
+        <div id="receives" style="display:none">
+            <img id="horse" src="Horse_gallop.gif" />
+            <button type="submit" id="cancelReceive">Cancel</button>
+        </div>
+        <div id="sends" style="display:none">
+            <input id="recipient" placeholder="enter recipient" />
+            <input id="amount" placeholder="enter amount" />
+            <button type="submit" id="submit">Submit</button>
+            <button type="submit" id="cancelSend">Cancel</button>
+
+        </div>
+    </form>
+    <script data-main="client" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js"></script>
+</body>
+
+</html>
