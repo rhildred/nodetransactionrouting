@@ -1,7 +1,7 @@
 requirejs.config({
     "paths": {
-        "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
-        "socketio": '/socket.io/socket.io',
+        "jquery": "jquery-2.1.1.min",
+        "socketio": 'socket.io',
         "qrcode": 'qrcode.min'
     },
     shim: {
@@ -15,6 +15,7 @@ requirejs.config({
 });
 
 requirejs(["jquery", "socketio", "qrcode"], function (jQuery, io, QRCode) {
+    var sUrl = "http://shire.epicnetwork.io:3000";
     jQuery("#receive").click(function () {
         var username = localStorage.getItem("guid");
         if (username == "") {
@@ -23,7 +24,7 @@ requirejs(["jquery", "socketio", "qrcode"], function (jQuery, io, QRCode) {
         }
         jQuery("#sends").hide();
         jQuery("#receives").show();
-        if(jQuery("#qrcode img").length == 0){
+        if (jQuery("#qrcode img").length == 0) {
             var qrcode = new QRCode(document.getElementById("qrcode"), {
                 width: 200,
                 height: 200
@@ -31,7 +32,7 @@ requirejs(["jquery", "socketio", "qrcode"], function (jQuery, io, QRCode) {
             qrcode.makeCode(username);
 
         }
-        var socket = io();
+        var socket = io(sUrl);
         socket.emit('add username', username);
         socket.on('receive message', function (data) {
             jQuery("#horse").hide();
@@ -39,42 +40,43 @@ requirejs(["jquery", "socketio", "qrcode"], function (jQuery, io, QRCode) {
         });
         return false;
     });
-    jQuery("#submit").click(function () {
-        var username = localStorage.getItem("guid");
-        var recipient = jQuery("#recipient").val();
-        var amount = jQuery("#amount").val();
-        if (username == "") {
-            alert("enter username");
-            return false;
-        }
-        if (recipient == "") {
-            alert("enter recipient");
-            return false;
-        }
-        if (amount == "") {
-            alert("enter amount");
-            return false;
-        }
-        var socket = io();
-        socket.emit('add username', username);
-        socket.emit('receive message', {
-            username: username,
-            recipient: recipient,
-            amount: amount
-        });
-        return false;
-    });
     jQuery("#send").click(function () {
-        jQuery("#sends").show();
-        jQuery("#receives").hide();
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                if (result.cancelled) return false;
+                var username = localStorage.getItem("guid");
+                var recipient = result.text;
+                var amount = jQuery("#amount").val();
+                if (username == "") {
+                    alert("enter username");
+                    return false;
+                }
+                if (recipient == "") {
+                    alert("enter recipient");
+                    return false;
+                }
+                if (amount == "") {
+                    alert("enter amount");
+                    return false;
+                }
+                var socket = io(sUrl);
+                socket.emit('add username', username);
+                socket.emit('receive message', {
+                    username: username,
+                    recipient: recipient,
+                    amount: amount
+                });
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+        );
+
         return false;
     });
+
     jQuery("#cancelReceive").click(function () {
         jQuery("#receives").hide();
-        return false;
-    });
-    jQuery("#cancelSend").click(function () {
-        jQuery("#sends").hide();
         return false;
     });
 
