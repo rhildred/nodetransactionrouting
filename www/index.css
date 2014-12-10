@@ -1,1 +1,32 @@
+import url("jquery.mobile-1.4.5.min.css");
 /* this is where custom css will go */
+
+
+body{
+    background-color: #D1FFFF;
+    align-content: center;
+    background: -webkit-linear-gradient(white, #D1FFFF); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(white, #D1FFFF); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(white, #D1FFFF); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(white, #D1FFFF); /* Standard syntax */
+}
+#username{
+
+    ui-shadow: 10px 10px 5px #888888;
+
+
+}
+#buttons
+{
+    margin: 20px;
+    float: left;
+}
+#receives{
+    background-color: white;
+    box-shadow: 1em 1em 1em #888888;
+    border: 1em black solid;
+    padding: 1em;
+    margin-left: 5em;
+    margin-top: 5em;
+
+}

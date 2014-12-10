@@ -2,39 +2,52 @@
 <html>
 
 <head>
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1.5, maximum-scale=1.5, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <link rel="stylesheet" type="text/css" href="index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <form id="signup">
-        <input id="firstName" placeholder="first name" />
-        <br />
-        <input id="lastName" placeholder="last name" />
-        <br />
-        <input type="email" id="email" placeholder="email" />
-        <br />
-        <input id="phone" placeholder="phone" />
-        <br />
-        <input id="dob" placeholder="yyyy-mm-dd" />
-        <br />
-        <label for="dob">Date of Birth YYY-MM-DD(so we can give you points on your birthday :)</label>
-        <br />
-        <input type="checkbox" id="accept" required/>
-        <label for="accept">I accept the terms and conditions of the Epic Network</label>
-        <br />
-        <button type="submit">Submit</button>
+        <div >
+            <img src="Epic-Network-Logo-small.png">
+            <br/>
+            <input id="firstName" placeholder="first name" />
+            <br />
+            <input id="lastName" placeholder="last name" />
+            <br />
+            <input type="email" id="email" placeholder="email" />
+            <br />
+            <input id="phone" placeholder="phone" />
+            <br />
+            <input id="dob" placeholder="yyyy-mm-dd" />
+            <br />
+            <label for="dob">Date of Birth YYY-MM-DD(so we can give you points on your birthday :)</label>
+            <br />
+            <input type="checkbox" id="accept" required/>
+            <label for="accept">I accept the terms and conditions of the Epic Network</label>
+            <br />
+            <button type="submit">Submit</button>
+        </div>
     </form>
     <form id="sendReceive" style="display:none">
-        <span id="username"></span>
-        <br />
-        <input id="amount" placeholder="enter amount" />
-        <button type="submit" id="send">Send</button>
-        <button type="submit" id="receive">Receive</button><span id="result"></span>
-        <div id="receives" style="display:none">
-            <div id="qrcode"></div>
-            <img id="horse" src="Horse_gallop.gif" />
-            <button type="submit" id="cancelReceive">Cancel</button>
+        <div>
+            <img src="Epic-Network-Logo-small.png">
+            <br/>
+            <span id="username" ></span>
+            <br />
+            <div id="buttons" >
+                <input id="amount" placeholder="enter amount" />
+                <button type="submit" id="send">Send</button>
+                <button type="submit" id="receive">Receive</button><span id="result"></span>
+            </div>
+            <div id="receives" style="display:none">
+                <div id="qrcode"></div>
+                <img id="horse" src="Horse_gallop.gif" />
+                <button type="submit" id="cancelReceive">Cancel</button>
+            </div>
         </div>
     </form>
     <script data-main="client" src="require.min.js"></script>
